@@ -1,5 +1,5 @@
 
-title: Elus1nist's Portfolio
+title: Abizer's Portfolio
 subtitle: This is who I am and what I do ;)
 description: >- # this means to ignore newlines until "baseurl:"
   Hello! I'm Abizer nice to meet you!
@@ -9,7 +9,8 @@ avatar: assets/images/avatar.jpg
 
 linkedin_url: https://www.linkedin.com/in/abizer-naseem-5a267a18b/
 github_url: https://github.com/Ab1z3rNaseem
-stackoverflow_url: https://github.com/Ab1z3r
+stackoverflow_url: https://drive.google.com/file/d/1k-g8UNenZqWNX47oP9yEoeSb3DYyj5rj/view?usp=share_link
+
 
 # The following settings are NECESSARY for the Prologue theme to run:
 remote_theme: Ab1z3r/Portfolio

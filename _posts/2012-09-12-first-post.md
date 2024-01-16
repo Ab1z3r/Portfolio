@@ -5,11 +5,12 @@ layout: post
 date: 16 January 2023
 imagesrc: https://labs.hackthebox.com/storage/avatars/d4988810825d26acb2e84ca0ac9feaf4.png
 ---
+Welcome! This is my writeup of the new Medium machine from HTB, Monitored. 
+
 ---
 ---
 ## Enumerating Services and Open Ports
 
-Welcome! This is my writeup of the new Medium machine from HTB, Monitored.
 
 So to start, as usual we run an nmap TCP port scan:
 

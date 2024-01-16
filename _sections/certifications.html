@@ -3,11 +3,56 @@ title: Certifications
 icon: fa-comment
 order: 3
 ---
+
+<style>
+.certification {
+  position: relative;
+  overflow: hidden;
+  width: 200px; /* Set the width as per your requirement */
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-right: 10px;
+  transition: transform 0.3s;
+}
+
+.certification img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.certification:hover {
+  transform: scale(1.05);
+}
+
+.certification .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.certification:hover .overlay {
+  opacity: 1;
+}
+</style>
+
 <div>
-  <div>
+  <div class="certification">
     <img src="{{- 'assets/images/CPTS_Badge.png' | relative_url -}}" alt="CPTS Certification"> 
+    <div class="overlay">CPTS Certification</div>
   </div>
-  <div>
+  <div class="certification">
     <img src="{{- 'assets/images/OSCP_Cred.png' | relative_url -}}" alt="OSCP Certification"> 
+    <div class="overlay">OSCP Certification</div>
   </div>
 </div>

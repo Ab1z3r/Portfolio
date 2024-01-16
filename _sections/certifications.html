@@ -5,7 +5,13 @@ order: 3
 ---
 
 <style>
+
+.row{
+  float: left;
+}
+
 .certification {
+  display: table;
   position: relative;
   overflow: hidden;
   width: 100px; /* Set the width as per your requirement */
@@ -46,7 +52,7 @@ order: 3
 }
 </style>
 
-<div>
+<div class="row">
   <div class="certification">
     <img src="{{- 'assets/images/CPTS_Badge.png' | relative_url -}}" alt="CPTS Certification"> 
     <div class="overlay">CPTS Certification</div>

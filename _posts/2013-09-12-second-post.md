@@ -67,7 +67,7 @@ feroxbuster --url http://bizness.htb --filter-status 404
 From the fuzzing we discover a directory - `/accounting`
 
 Visiting this page:
-<img src='../writeup_images/Bizness/Bizness_Webpage_accounting.png'>
+<img src="{{- 'writeup_images/Bizness/Bizness_Webpage_accounting.png' | relative_url}}" >
 
 ---
 ---

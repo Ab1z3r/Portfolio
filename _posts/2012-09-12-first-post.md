@@ -5,7 +5,7 @@ layout: post
 date: 16 January 2023
 imagesrc: https://labs.hackthebox.com/storage/avatars/d4988810825d26acb2e84ca0ac9feaf4.png
 ---
-Welcome! This is my writeup of the new Medium machine from HTB, Monitored. 
+Welcome! This is my writeup of the new Season 4 Medium machine from HTB, Monitored. 
 
 ---
 ---

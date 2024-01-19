@@ -56,7 +56,7 @@ Alright, so now we have the following services that we can exploit:
 
 Once we add to our hosts file we can visit the HTTP webpage and see the following:
 
-<img src="{{- writeup_images/Bizness/Bizness_Webpage.png | relative_url}}" >
+<img src="{{- 'writeup_images/Bizness/Bizness_Webpage.png' | relative_url}}" >
 
 ### Directory Fuzzing
 

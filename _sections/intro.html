@@ -33,6 +33,7 @@ order: 1
     let iteration = 0;
 
     clearInterval(interval);
+    event.target.dataset.value = event.target.innerText;
 
     interval = setInterval(() => {
       event.target.innerText = event.target.innerText
@@ -45,6 +46,7 @@ order: 1
           return letters[Math.floor(Math.random() * 26)]
         })
         .join("");
+
 
       if (iteration >= event.target.dataset.value.length) {
         clearInterval(interval);

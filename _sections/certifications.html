@@ -26,52 +26,47 @@ order: 3
   display: block;
 }
 
+.certification .certname{
+  padding: 2px;
+  width: 100%; /* Set the width as per your requirement */
+  border: 0.75px solid #000000;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
 .certification:hover {
   transform: scale(1.05);
-}
-
-.certification .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.certification:hover .overlay {
-  opacity: 1;
 }
 
 </style>
 
 <div class="row">
   <div class="certification">
-      <img src="{{- 'assets/images/CPTS_Badge.png' | relative_url -}}" alt="CPTS Certification"> 
+      <img src="{{- 'assets/images/CPTS_Badge.png' | relative_url -}}" alt="CPTS Certification">
+      <p class="certName"> Cert Name </p>
   </div>
   <div class="certification">
-      <img src="{{- 'assets/images/OSCP_Cred.png' | relative_url -}}" alt="OSCP Certification"> 
+      <img src="{{- 'assets/images/OSCP_Cred.png' | relative_url -}}" alt="OSCP Certification">
+      <p class="certName"> Cert Name </p>
   </div>
   <div class="certification">
       <img src="{{- 'assets/images/ic-aptlabs-overview.svg' | relative_url -}}" alt="HTB APTLabs Certificate"> 
+      <p class="certName"> Cert Name </p>
   </div>
   <div class="certification">
-      <img src="{{- 'assets/images/ic-rastalabs-overview.svg' | relative_url -}}" alt="HTB RastaLabs Certificate"> 
+      <img src="{{- 'assets/images/ic-rastalabs-overview.svg' | relative_url -}}" alt="HTB RastaLabs Certificate">
+      <p class="certName"> Cert Name </p>
   </div>
   <div class="certification">
-      <img src="{{- 'assets/images/ic-zephyr-overview.svg' | relative_url -}}" alt="HTB Zephyr Certificate"> 
+      <img src="{{- 'assets/images/ic-zephyr-overview.svg' | relative_url -}}" alt="HTB Zephyr Certificate">
+      <p class="certName"> Cert Name </p>
   </div>
   <div class="certification">
     <img src="{{- 'assets/images/triplebyte_logo.jpg' | relative_url -}}" alt="Triplebyte Certified"> 
+    <p class="certName"> Cert Name </p>
   </div>
   <div class="certification">
     <img src="{{- 'assets/images/cybrary_logo.jpg' | relative_url -}}" alt="Cybrary WebApp Penetration Testing"> 
+    <p class="certName"> Cert Name </p>
   </div>
 </div>

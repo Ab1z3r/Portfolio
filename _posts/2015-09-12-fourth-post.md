@@ -1,7 +1,9 @@
 ---
-title: Fourth Post
-author: Chris
+title: HTB Devvortex Writeup
+author: Elus1nist
 layout: post
+date: 12 January 2023
+imagesrc: https://labs.hackthebox.com/storage/avatars/2565d292772abc4a2d774117cf4d36ff.png
 ---
 Lorem ipsum dolor sit amet, harum malorum nominavi mea et. Atqui maluisset duo cu, summo dignissim voluptatum sit ut. Ad quo quidam delicatissimi. Cum nihil noster patrioque id. Per at maiorum definitiones. Cu vix sint aliquip. No duo alia sale persecuti.
 

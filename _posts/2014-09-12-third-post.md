@@ -129,3 +129,5 @@ sudo /usr/bin/apport-cli -c /var/crash/_usr_bin_apport-cli.0.crash
 ```
 
 Once loaded we can pres the `V` key and use `!/bin/bash` to gain root shell.
+
+<img src="https://giffiles.alphacoders.com/206/206739.gif">

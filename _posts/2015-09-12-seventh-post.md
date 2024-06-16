@@ -108,4 +108,4 @@ We can now print the root flag - `cat /root/root.txt`
 
 
 
-<img src="https://giffiles.alphacoders.com/206/206739.gif">
+<img src="https://gifsec.com/wp-content/uploads/2022/09/yay-gif-1.gif">

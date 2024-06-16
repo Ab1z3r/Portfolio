@@ -173,4 +173,4 @@ monkeybizness
 
 BOOM! PWNED.ZIP ACHIEVED!
 
-<img src="https://giffiles.alphacoders.com/206/206739.gif">
+<img src="https://gifsec.com/wp-content/uploads/2022/09/yay-gif-11.gif">

@@ -156,4 +156,4 @@ Restart nagios service and gain root flag
 sudo /usr/local/nagiosxi/scripts/manage_services.sh restart nagios
 ```
 
-<img src="https://giffiles.alphacoders.com/206/206739.gif">
+<img src="https://gifsec.com/wp-content/uploads/2022/09/yay-gif-6.gif">
